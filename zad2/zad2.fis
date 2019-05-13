@@ -1,0 +1,63 @@
+[System]
+Name='zad2'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=4
+NumRules=1
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='U1real'
+Range=[0 7]
+NumMFs=1
+MF1='U1real':'trimf',[4 5 6]
+
+[Input2]
+Name='U1imag'
+Range=[-1 1]
+NumMFs=1
+MF1='U1imag':'trimf',[-1 0 1]
+
+[Input3]
+Name='U2real'
+Range=[-2 1]
+NumMFs=1
+MF1='U2real':'trimf',[-2 -1 0]
+
+[Input4]
+Name='U2imag'
+Range=[-3 1]
+NumMFs=1
+MF1='U2imag':'trimf',[-3 -2 -1]
+
+[Output1]
+Name='I1real'
+Range=[0 0.5]
+NumMFs=1
+MF1='I1real':'trimf',[0.3164 0.3542 0.392]
+
+[Output2]
+Name='I1imag'
+Range=[0 0.5]
+NumMFs=1
+MF1='I1imag':'trimf',[0.07078 0.1086 0.1464]
+
+[Output3]
+Name='I2real'
+Range=[0 0.5]
+NumMFs=1
+MF1='i2real':'trimf',[0.03467 0.0655 0.09614]
+
+[Output4]
+Name='I2imag'
+Range=[-0.5 0.5]
+NumMFs=1
+MF1='I2imag':'trimf',[-0.238 -0.2073 -0.1765]
+
+[Rules]
+1 1 1 1, 1 1 1 1 (1) : 1
