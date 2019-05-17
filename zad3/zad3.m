@@ -1,11 +1,11 @@
 clc
 clear
 %% STARTING PARAMETERS
-optimal_score = 3.14159;
+optimal_score = 3.1415;
 mutation_prob = 10;
-generation_size = 53;    
-circuit_size = 10;
-E_24_or_ohm = 0;
+generation_size = 50;    
+circuit_size = 10; % number of resistors
+E_24_or_ohm = 1;
 
 %% generate E24 resistor values
 if(E_24_or_ohm == 0)
@@ -22,10 +22,18 @@ end
 population = create_population(generation_size, circuit_size, E_24);
 %% Evolving 
 %[fittest index] = get_fittest(population, optimal_score)
-fittest_half = get_fittest_half(population, optimal_score)
+fittest_half = get_fittest_half(population, optimal_score);
 fittest = equivalent_res(fittest_half(1));
-while (fittest ~= optimal_result)
-     
+new_population = crossover(fittest_half)
+i = 0;
+while (abs(fittest - optimal_score) > 0.00005)
+     abs(fittest - optimal_score)
+     disp( i)
+     disp(fittest)
+     new_population = crossover(fittest_half);
+     fittest_half = get_fittest_half(new_population, optimal_score);
+     fittest = (equivalent_res(fittest_half(1)));
+     i = i + 1;
 end
 
 

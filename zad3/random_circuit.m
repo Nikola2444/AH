@@ -5,6 +5,6 @@ function [circuit] = random_circuit(num_of_resistors, E_24)
 end
 
 
-msize = numel(resistors);
-res = resistors(randperm(msize, 4))
-[value indices] = intersect(resistors, res)
+% msize = numel(resistors);
+% res = resistors(randperm(msize, 4))
+% [value indices] = intersect(resistors, res)

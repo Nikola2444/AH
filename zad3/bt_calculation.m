@@ -4,6 +4,7 @@
 % depth_first manner
 % node is the starting node
 function [Y,n] = bt_calculation(res_tree, depth_first, node)
+    node;
     if (res_tree.isleaf(depth_first(node)) ~= 0)
         Y = (res_tree.get(depth_first(node)));
         n = node;
