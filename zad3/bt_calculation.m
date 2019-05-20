@@ -18,6 +18,7 @@ function [Y,n] = bt_calculation(res_tree, depth_first, node)
         [YR, n] = bt_calculation(res_tree, depth_first, n + 1);
         Y = paralel_res(YL,YR);
     else
+        res_tree.get(depth_first(node))
         error("wrong node values entered");
         Y = 0
         n = 0

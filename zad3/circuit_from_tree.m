@@ -1,4 +1,4 @@
-function [resistors operations] = circuit_from_tree(circuit)
+function [resistors operations i] = circuit_from_tree(circuit)
     resistors = ones(1, length(circuit.findleaves));
     operations = ones(1, length(circuit.findleaves) - 1);
     

@@ -4,9 +4,9 @@ clear
 % 20 circuit size za E = 0; selection ration 4:1
 %% STARTING PARAMETERS
 optimal_score = 3.1415;
-mutation_prob = 0.012; % value beetween o - 1
-generation_size = 60;    
-circuit_size = 25; % number of resistors
+mutation_prob = 0.005; % value beetween o - 1
+generation_size = 50;    
+circuit_size = 15; % number of resistors
 E_24_or_ohm = 1; % 0 for E_24 resistors 1 for 1ohm resistors
 
 %% generate E24 resistor values
@@ -30,7 +30,7 @@ new_population = crossover(fittest_half)
 best = fittest
 
     i = 0;
-    while (abs(fittest - optimal_score) > 0.000003)
+    while (abs(best - optimal_score) > 0.000005)
          if(abs(fittest - optimal_score) < abs(best - optimal_score))
              best = fittest;
          end
