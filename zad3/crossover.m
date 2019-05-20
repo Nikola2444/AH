@@ -1,5 +1,6 @@
 function new_population = crossover(population)
-    new_population =  population;
+    new_population = population;
+    population =  population(randperm(length(population)));
     
     iterations = length(population);
     if(mod(iterations,2) ~=0)
@@ -17,12 +18,19 @@ function new_population = crossover(population)
        msize2 = numel(resistors2);
        operation1_size = numel(operations1);
        operation2_size = numel(operations2);
+       if (msize1 > msize2)
+           op1 =  (randperm(operation1_size, floor(operation1_size/2)));
+           op2 =  (randperm(operation2_size, ceil(operation2_size/2)));
+           res1 = (randperm(msize1, ceil(msize1/2))); % sredi indekse
+           res2 = (randperm(msize2, floor(length(resistors2)/2)));% sredi indekse
        
-       op1 =  (randperm(operation1_size, floor(operation1_size/2)));
-       op2 =  (randperm(operation2_size, ceil(operation2_size/2)));
+       else
+           op1 =  (randperm(operation1_size, ceil(operation1_size/2)));
+           op2 =  (randperm(operation2_size, floor(operation2_size/2)));
+           res1 = (randperm(msize1, floor(msize1/2))); % sredi indekse
+           res2 = (randperm(msize2, ceil(length(resistors2)/2)));% sredi indekse
        
-       res1 = (randperm(msize1, floor(msize1/2))); % sredi indekse
-       res2 = (randperm(msize2, ceil(length(resistors2)/2)));% sredi indekse
+       end
        
        first_child1_res = resistors1 (res1);
        first_child2_res = resistors2 (res2);
@@ -42,6 +50,10 @@ function new_population = crossover(population)
        %setdiff(first_child_res, second_child_res)       
        new_population(i) = create_binary_tree([first_child_op, first_child_res]);
        new_population(i + 1)= create_binary_tree([second_child_op, second_child_res]);
+       %disp(new_population(i).tostring);
+       equivalent_res(new_population(i));
+       %disp(new_population(i + 1).tostring);
+       equivalent_res(new_population(i + 1));
     end
     new_population = [new_population, population];
     

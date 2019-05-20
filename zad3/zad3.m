@@ -1,11 +1,13 @@
 clc
 clear
+
+% 20 circuit size za E = 0; selection ration 4:1
 %% STARTING PARAMETERS
 optimal_score = 3.1415;
-mutation_prob = 10;
-generation_size = 50;    
-circuit_size = 10; % number of resistors
-E_24_or_ohm = 1;
+mutation_prob = 0.012; % value beetween o - 1
+generation_size = 60;    
+circuit_size = 25; % number of resistors
+E_24_or_ohm = 1; % 0 for E_24 resistors 1 for 1ohm resistors
 
 %% generate E24 resistor values
 if(E_24_or_ohm == 0)
@@ -25,16 +27,28 @@ population = create_population(generation_size, circuit_size, E_24);
 fittest_half = get_fittest_half(population, optimal_score);
 fittest = equivalent_res(fittest_half(1));
 new_population = crossover(fittest_half)
-i = 0;
-while (abs(fittest - optimal_score) > 0.00005)
-     abs(fittest - optimal_score)
-     disp( i)
-     disp(fittest)
-     new_population = crossover(fittest_half);
-     fittest_half = get_fittest_half(new_population, optimal_score);
-     fittest = (equivalent_res(fittest_half(1)));
-     i = i + 1;
-end
+best = fittest
+
+    i = 0;
+    while (abs(fittest - optimal_score) > 0.000003)
+         if(abs(fittest - optimal_score) < abs(best - optimal_score))
+             best = fittest;
+         end
+         disp(i)
+         disp([fittest best best - optimal_score])
+         
+         new_population = crossover(fittest_half);
+         new_population = mutation(new_population, mutation_prob, E_24);
+         %fittest_half = get_fittest_half(new_population, optimal_score);
+         fittest_half = selection(new_population, optimal_score);
+         fittest = (equivalent_res(fittest_half(1)));
+         if (abs(fittest - optimal_score) < 0.000001)
+             break;
+         end
+         i = i + 1;
+    end
+
+
 
 
  

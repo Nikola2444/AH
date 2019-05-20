@@ -7,6 +7,7 @@ function fittest_half = get_fittest_half(population, optimal_score)
     for i = 1:length(population)
         
         %equivalent_res(population(i))
+        %disp(population(i).tostring);
         population_res(i) =  equivalent_res(population(i));
         optimum_diff(i) = (abs(optimal_score - population_res(i)));
     end

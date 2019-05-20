@@ -4,7 +4,7 @@ function [resistors operations] = circuit_from_tree(circuit)
     
     for i = 1:circuit.nnodes
         if(circuit.isleaf(i) == 1)
-            resistors(i - 9) = circuit.get(i);
+            resistors(i - length(circuit.findleaves) + 1) = circuit.get(i);
         else
             operations(i) = circuit.get(i);
         end        
