@@ -4,15 +4,15 @@ clear
 % 20 circuit size za E = 0; selection ration 4:1
 %% STARTING PARAMETERS
 optimal_score = 3.1415;
-mutation_prob = 0.005; % value beetween 0 - 1
+mutation_prob = 0.001; % value beetween 0 - 1
 generation_size = 50;    
 circuit_size = 15; % number of resistors
-E_24_or_ohm = 0; % 0 for E_24 resistors 1 for 1ohm resistors
+E_24_or_ohm = 1; % 0 for E_24 resistors 1 for 1ohm resistors
 
 %% generate E24 resistor values
 if(E_24_or_ohm == 0)
     E24_base = [1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.8 2.0 2.2 2.4 2.7 3.0 3.3 3.6 3.9 4.3 4.7 5.1 5.6 6.2 6.8 7.5 8.2 9.1];
-    for i = 1 : 25
+    for i = 1 :005 25
         for j = 1 : 7
             E_24(i,j) = E24_base(i) * 10^(j - 1);
         end
@@ -34,7 +34,7 @@ for j = 1 : 10
     i = 0;
     k = 1;
     %while (abs(best - optimal_score) > 0.000005)
-    for i = 1 : 1000
+    for i = 1 : 2000
          if(abs(fittest - optimal_score) < abs(best - optimal_score))
              best = fittest;
          end
@@ -47,7 +47,7 @@ for j = 1 : 10
          fittest_half = selection(new_population, optimal_score);
          fittest = (equivalent_res(fittest_half(1)));
          i = i + 1;
-         if (abs(fittest - optimal_score) < 0.000005)
+         if (abs(fittest - optimal_score) < 0.000001)
              best_ppl(k) = fittest;
              k = k + 1;
              break;Nikola
