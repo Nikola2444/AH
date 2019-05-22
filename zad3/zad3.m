@@ -1,13 +1,15 @@
 clc
 clear
 
-% 20 circuit size za E = 0; selection ration 4:1
+% 20 circuit size za E = 0; selection ration 0.5:0.5
 %% STARTING PARAMETERS
-optimal_score = 3.1415;
-mutation_prob = 0.005; % value beetween 0 - 1
+%optimal_score = 3.141592653589; this was found with E_24 mut_prob = 0.2
+optimal_score = 3.14159265; 
+%ratio 0.3:0.2
+mutation_prob = 0.2; % value beetween 0 - 1
 generation_size = 50;    
 circuit_size = 15; % number of resistors
-E_24_or_ohm = 0; % 0 for E_24 resistors 1 for 1ohm resistors
+E_24_or_ohm = 1; % 0 for E_24 resistors 1 for 1ohm resistors
 
 %% generate E24 resistor values
 if(E_24_or_ohm == 0)
@@ -30,34 +32,61 @@ for j = 1 : 10
     
     fittest_half = get_fittest_half(population, optimal_score);
     fittest = equivalent_res(fittest_half(1));
-    new_population = crossover(fittest_half)
+    new_population = cross_over3(fittest_half)
     best = fittest
     i = 0;
     k = 1;
     %while (abs(best - optimal_score) > 0.000005)
-    for i = 1 : 2000
+    for i = 1 : 1000
          if(abs(fittest - optimal_score) < abs(best - optimal_score))
+             best_ppl(j) = fittest_half(1);
              best = fittest;
          end
          disp(i)
+         
          disp([fittest best best - optimal_score j])
          
-         new_population = crossover(fittest_half);
+         new_population = cross_over3(fittest_half);
          new_population = mutation(new_population, mutation_prob, E_24, optimal_score);
          %fittest_half = get_fittest_half(new_population, optimal_score);
          fittest_half = selection(new_population, optimal_score);
          fittest = (equivalent_res(fittest_half(1)));
-         i = i + 1;
-         if (abs(fittest - optimal_score) < 0.000001)
-             
-             k = k + 1;
-             break;Nikola
+         i = i + 1;         
+         best_ppl_res(j) = fittest;
+         if (abs(best_ppl_res - optimal_score) < 0.000000001)
+             best_found = best_ppl_res;
+             break;
          end
-         best_ppl(j) = fittest;
+         if (new_population(1).nnodes > 150)
+             break;
+         end
     end
-    
+        
 end
+    [best_ppl_res, index] = sort(best_ppl_res)
+    best_ppl = best_ppl(index)
 
-
- 
-
+    
+  %% Monte Carlo Analysys
+  % +5% worst case
+  best_ppl_mk = best_ppl(3);
+  for i = 1:best_ppl_mk.nnodes
+      node_value = best_ppl_mk.get(i);
+      if ( node_value > 0)
+          best_ppl_mk = best_ppl_mk.set(i, node_value + node_value * 0.05);
+      end
+  end
+  equivalent_res(best_ppl_mk)
+  
+  % -5% worst case
+  best_ppl_mk = best_ppl(3);
+  for i = 1:best_ppl_mk.nnodes
+      node_value = best_ppl_mk.get(i);
+      if ( node_value > 0)
+          best_ppl_mk = best_ppl_mk.set(i, node_value - node_value * 0.05);
+      end
+  end
+  equivalent_res(best_ppl_mk);
+  
+  
+  

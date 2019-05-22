@@ -1,9 +1,9 @@
 function new_population = crossover(population)
     new_population = population;
-    population =  population(randperm(length(population)));
+    %population =  population(randperm(length(population)));
     
     iterations = length(population);
-    if(mod(iterations,2) ~=0)
+    if(mod(iterations,2) ~= 0)
         iterations = iterations - 1;
     end
     
@@ -53,7 +53,10 @@ function new_population = crossover(population)
        %disp(new_population(i).tostring);
        equivalent_res(new_population(i));
        %disp(new_population(i + 1).tostring);
-       equivalent_res(new_population(i + 1));
+       child = equivalent_res(new_population(i + 1));       
+       if (child > 3.13 && child < 3.15)
+           child
+       end
     end
     new_population = [new_population, population];
     
