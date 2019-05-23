@@ -12,10 +12,11 @@ function child = create_child(mother, father)
             %disp(mother.tostring)
             graft_index = mother.getparent(chop_index);
             mother = mother.chop(chop_index);
-        
+            
             %disp(mother.tostring)
             
             %disp(father.tostring);
+            
             child = mother.graft(graft_index, father.subtree(chop_index));
             
             %disp(child.tostring);

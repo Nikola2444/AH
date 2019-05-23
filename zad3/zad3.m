@@ -3,11 +3,11 @@ clear
 
 % 20 circuit size za E = 0; selection ration 0.5:0.5
 %% STARTING PARAMETERS
-optimal_score = 3.1415926535; %broj decimala 
+optimal_score = 3.14159265; %broj decimala 
 %optimal_score = 3.14159265; 
 %ratio 0.3:0.2
 mutation_prob = 0.2; % value beetween 0 - 1
-generation_size = 60;    
+generation_size = 50;    
 circuit_size = 15; % starting number of resistors in a circuits
 E_24_or_ohm = 1; % 0 for E_24 resistors; 1 for 1ohm resistors
 
@@ -28,12 +28,13 @@ population = create_population(generation_size, circuit_size, E_24);
 %[fittest index] = get_fittest(population, optimal_score)
 best_res = 0;
 j = 0;
-while (abs(best_res - optimal_score) > 0.0000000001)
+while (abs(best_res - optimal_score) > 0.000000001)
     population = create_population(generation_size, circuit_size, E_24);
-    
-    fittest_half = get_fittest_half(population, optimal_score);
+    fittest_half = selection(population, optimal_score);%selection
+    %fittest_half = get_fittest_half(population, optimal_score);
     fittest = equivalent_res(fittest_half(1));
     new_population = cross_over3(fittest_half);
+    
     
     i = 0;
     k = 1;
@@ -53,7 +54,7 @@ while (abs(best_res - optimal_score) > 0.0000000001)
          fittest = (equivalent_res(fittest_half(1)));%best resistance
          i = i + 1;         
          
-         if (new_population(1).nnodes > 150)
+         if (new_population(1).nnodes > 1000)
              break;
          end
     end
@@ -64,8 +65,8 @@ disp(j)
     
   %% Monte Carlo Analysys
   
-  
-  
+  disp('najbolji je:')
+  disp(vpa(equivalent_res(best)))
   for j = 1 : 1000
       best_ppl_mk = best;
       for i = 1:best_ppl_mk.nnodes;
@@ -78,7 +79,7 @@ disp(j)
   end
   n = 1:1:1000;
   plot(n, resistances_mk);
-  disp(['after negative worst case ' equivalent_res(best_ppl_mk)]);
+
   
   
   
