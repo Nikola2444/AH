@@ -8,7 +8,7 @@ function child = create_child(mother, father)
             end
             
             chop_index = randi([2, max_index], 1);
-            
+            %mother
             %disp(mother.tostring)
             graft_index = mother.getparent(chop_index);
             mother = mother.chop(chop_index);
@@ -17,6 +17,7 @@ function child = create_child(mother, father)
             
             %disp(father.tostring);
             child = mother.graft(graft_index, father.subtree(chop_index));
+            
             %disp(child.tostring);
         else
             if (mother.nnodes > father.nnodes)

@@ -10,9 +10,9 @@ function selected = selection(population, optimal_score)
     end
     [optimum_diff, indices] = sort(optimum_diff);
     population_res = population(indices);
-    best_cells = population_res(1:ceil(length(population_res)*0.3));
+    best_cells = population_res(1:ceil(length(population_res)*0.4));
     pop_size = numel(population);
-    indices =  (randperm(floor(pop_size/2), floor(pop_size*0.2))) + floor(pop_size/2);
+    indices =  (randperm(floor(pop_size/2), floor(pop_size*0.1))) + floor(pop_size/2);
     other_cells = population_res(indices);
     
     selected = [best_cells other_cells];
