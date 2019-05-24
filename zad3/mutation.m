@@ -1,8 +1,8 @@
-function m_population = mutation(population, chance, E_24, optimal_score)
+function m_population = mutation(population, chance, E_24, optimal_score, precision)
       m_population = population;
     for i = 1:length(population)
         difference_optimal = abs(equivalent_res(population(i)) - optimal_score);
-        if (rand()< chance && difference_optimal > 0.3)            
+        if (rand()< chance && difference_optimal > precision)            
             [resistors, operations] = circuit_from_tree(population(i));
             
             %mutation = E_24(randi(numel(E_24), 1));         
